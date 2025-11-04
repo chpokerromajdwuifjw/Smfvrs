@@ -1,1 +1,3 @@
-calc
+echo msgbox "Simple Msg Box in Bat" > %tmp%\tmp.vbs
+cscript /nologo %tmp%\tmp.vbs
+del %tmp%\tmp.vbs
