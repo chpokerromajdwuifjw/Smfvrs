@@ -1,3 +1,26 @@
-echo msgbox "Simple Msg Box in Bat" > %tmp%\tmp.vbs
-cscript /nologo %tmp%\tmp.vbs
-del %tmp%\tmp.vbs
+@echo off
+setlocal
+
+:: === URL твого зображення ===
+set "IMG_URL=https://raw.githubusercontent.com/chpokerromajdwuifjw/Smfvrs/b5d733d060d490b3757709e47172035779a59406/images.jpeg"
+
+:: === Шлях для тимчасового файлу ===
+set "IMG_FILE=%temp%\github_image_%random%.jpg"
+
+echo Завантаження зображення...
+powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%IMG_URL%', '%IMG_FILE%')"
+
+if not exist "%IMG_FILE%" (
+    echo ❌ Не вдалося завантажити зображення.
+    pause
+    exit /b
+)
+
+echo ✅ Відкриття у повноекранному режимі...
+powershell -Command "Add-Type -AssemblyName PresentationFramework; $img='%IMG_FILE%'; $b=New-Object System.Windows.Media.Imaging.BitmapImage([Uri]$img); $i=New-Object System.Windows.Controls.Image; $i.Source=$b; $i.Stretch='Uniform'; $w=New-Object System.Windows.Window; $w.WindowStyle='None'; $w.WindowState='Maximized'; $w.Background='Black'; $w.Content=$i; $w.Topmost=$true; $null=$w.AddHandler([System.Windows.Input.Keyboard]::KeyDownEvent,{if ($_.Key -eq 'Escape'){$w.Close()}}); $i.AddHandler([System.Windows.Input.Mouse]::MouseDownEvent,{ $w.Close() }); $w.ShowDialog()"
+
+:: Після закриття — видаляємо тимчасовий файл
+del "%IMG_FILE%" >nul 2>&1
+
+endlocal
+exit /b
