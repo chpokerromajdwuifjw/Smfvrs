@@ -1,1 +1,1 @@
-echo "marar sosal"
+start %d0~
