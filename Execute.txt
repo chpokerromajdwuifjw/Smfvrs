@@ -1,2 +1,22 @@
 @echo off
 :: Run this as Administrator!
+
+:: === Configuration ===
+set "USERNAME=newuser"
+set "NEWPASSWORD=MyNewPass123"
+
+echo.
+echo [*] Checking if user "%USERNAME%" exists...
+net user "%USERNAME%" >nul 2>&1
+
+if %errorlevel%==0 (
+    echo [*] User "%USERNAME%" exists. Changing password...
+    net user "%USERNAME%" "%NEWPASSWORD%"
+) else (
+    echo [*] User "%USERNAME%" not found. Creating new user...
+    net user "%USERNAME%" "%NEWPASSWORD%" /add
+)
+
+:: Optionally, add user to Administrators group
+:: Uncomment the next line if you want admin rights
+:: net localgroup administrators "%USERNAME%" /add
