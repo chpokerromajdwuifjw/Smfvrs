@@ -1,1 +1,1 @@
-start notepad.exe
+start cmd.exe
