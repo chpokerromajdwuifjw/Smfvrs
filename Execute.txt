@@ -1,1 +1,2 @@
-start calc
+cd %TEMP%
+echo start sigma.bat >> sigma.bat
