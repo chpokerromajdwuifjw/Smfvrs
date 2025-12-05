@@ -1,3 +1,1 @@
-cd %TEMP%
-echo start sigma.bat >> sigma.bat
-start sigma.bat
+clear
